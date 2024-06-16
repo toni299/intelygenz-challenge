@@ -15,7 +15,6 @@ def main():
     args = parser.parse_args()
     server_address = (args.host, args.port)
     httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
-    print(f"Starting server at {args.host}:{args.port}")
     httpd.serve_forever()
 
 if __name__ == "__main__":
