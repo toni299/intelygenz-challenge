@@ -10,5 +10,6 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.containerPort }}
       protocol: TCP
+      name: server
   selector:
     {{- include "http-server-challenge.selectorLabels" . | nindent 4 }}
