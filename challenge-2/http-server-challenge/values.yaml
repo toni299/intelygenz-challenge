@@ -30,10 +30,10 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-  allowPrivilegeEscalation: false
+podSecurityContext: {}
+  # runAsUser: 1000
+  # runAsGroup: 1000
+  # allowPrivilegeEscalation: false
 
 securityContext: {}
   # capabilities:
