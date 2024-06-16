@@ -1,0 +1,65 @@
+9 issue(s) found:
+
+Warning: terraform "required_version" attribute is required (terraform_required_version)
+
+  on  line 0:
+   (source code not available)
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_required_version.md
+
+Notice: `vpc_id` output has no description (terraform_documented_outputs)
+
+  on main.tf line 38:
+  38: output "vpc_id" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_documented_outputs.md
+
+Warning: output "vpc_id" should be moved from main.tf to outputs.tf (terraform_standard_module_structure)
+
+  on main.tf line 38:
+  38: output "vpc_id" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_standard_module_structure.md
+
+Notice: `public_subnets` output has no description (terraform_documented_outputs)
+
+  on main.tf line 42:
+  42: output "public_subnets" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_documented_outputs.md
+
+Warning: output "public_subnets" should be moved from main.tf to outputs.tf (terraform_standard_module_structure)
+
+  on main.tf line 42:
+  42: output "public_subnets" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_standard_module_structure.md
+
+Notice: `private_subnets` output has no description (terraform_documented_outputs)
+
+  on main.tf line 46:
+  46: output "private_subnets" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_documented_outputs.md
+
+Warning: output "private_subnets" should be moved from main.tf to outputs.tf (terraform_standard_module_structure)
+
+  on main.tf line 46:
+  46: output "private_subnets" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_standard_module_structure.md
+
+Warning: Missing version constraint for provider "aws" in `required_providers` (terraform_required_providers)
+
+  on provider.tf line 1:
+   1: provider "aws" {
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_required_providers.md
+
+Warning: Module should include an empty variables.tf file (terraform_standard_module_structure)
+
+  on variables.tf line 1:
+   (source code not available)
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.4.0/docs/rules/terraform_standard_module_structure.md
+
