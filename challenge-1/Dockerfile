@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
 
-RUN adduser -D http-server-challenge
+RUN adduser -D -u 1000 -G users http-server-challenge
 
 USER http-server-challenge
 
