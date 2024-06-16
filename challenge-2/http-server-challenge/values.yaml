@@ -15,7 +15,6 @@ nameOverride: ""
 fullnameOverride: ""
 
 containerPort: 8000
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -46,7 +45,6 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
-
 
 ingress:
   enabled: true
