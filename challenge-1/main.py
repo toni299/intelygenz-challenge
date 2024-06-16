@@ -10,7 +10,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser(description='HTTP Server arguments')
-    parser.add_argument('--port', type=int, default=8080, help='Port')
+    parser.add_argument('--port', type=int, default=8000, help='Port')
     parser.add_argument('--host', type=str, default='0.0.0.0', help='Host')
     args = parser.parse_args()
     server_address = (args.host, args.port)

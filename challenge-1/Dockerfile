@@ -1,12 +1,13 @@
 FROM python:3.9-alpine
 
+RUN adduser -D http-server-challenge
+
+USER http-server-challenge
+
 WORKDIR /app
 
-COPY main.py .
-
-RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
-USER appuser
-
-ENTRYPOINT ["python", "main.py"]
+COPY --chown=http-server-challenge:http-server-challenge main.py .
 
 EXPOSE 8000
+
+ENTRYPOINT ["python", "main.py"]
