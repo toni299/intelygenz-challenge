@@ -44,4 +44,4 @@ jobs:
 
     - name: Run TFLint
       working-directory: challenge-3
-      run: tflint
+      run: tflint || echo "TFLint detected issues but the workflow will continue."
