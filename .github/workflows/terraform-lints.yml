@@ -1,0 +1,36 @@
+name: Terraform Checks
+
+on:
+  pull_request:
+    paths:
+      - 'challenge-3/**'
+
+jobs:
+  terraform:
+    name: Run Terraform Checks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.2.0 # Specify the Terraform version you want to use
+
+    - name: Set up TFLint
+      run: |
+        curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+    - name: Set up TFSec
+      run: |
+        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install.sh | bash
+
+    - name: Run TFLint
+      working-directory: challenge-3
+      run: tflint
+
+    - name: Run TFSec
+      working-directory: challenge-3
+      run: tfsec .
