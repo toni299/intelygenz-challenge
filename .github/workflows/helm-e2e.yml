@@ -1,7 +1,7 @@
 name: Helm test end-to-end
 
-on: 
-  pull_request:
+on:
+  push:
     branches:
       - master
 
