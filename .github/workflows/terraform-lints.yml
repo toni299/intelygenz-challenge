@@ -12,27 +12,34 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
-    - name: Set up Homebrew
+    - name: Install dependencies
       run: |
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" <<< ""
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $GITHUB_ENV
+        echo 'PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH' >> $GITHUB_ENV
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      shell: bash
 
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.2.0 # Specify the Terraform version you want to use
 
-    - name: Set up TFLint
+    - name: Install TFLint
       run: |
         brew install tflint
+      env:
+        HOMEBREW_NO_AUTO_UPDATE: 1
 
-    - name: Set up TFSec
+    - name: Install TFSec
       run: |
         brew install tfsec
+      env:
+        HOMEBREW_NO_AUTO_UPDATE: 1
 
     - name: Terraform Init
       working-directory: challenge-3
