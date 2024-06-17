@@ -16,7 +16,7 @@ jobs:
 
     - name: Set up Homebrew
       run: |
-        sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
