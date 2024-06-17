@@ -12,25 +12,36 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - name: Set up Homebrew
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>~/.profile
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.2.0 # Specify the Terraform version you want to use
-    
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '>=1.17.0'
 
     - name: Set up TFLint
       run: |
-        curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+        brew install tflint
 
     - name: Set up TFSec
       run: |
-        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install.sh | bash
+        brew install tfsec
+
+    - name: Terraform Init
+      working-directory: challenge-3
+      run: terraform init
+
+    - name: Terraform Validate
+      working-directory: challenge-3
+      run: terraform validate
 
     - name: Run TFLint
       working-directory: challenge-3
