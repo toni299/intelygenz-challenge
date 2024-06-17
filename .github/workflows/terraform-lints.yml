@@ -1,3 +1,8 @@
+# on: 
+#   pull_request:
+#     branches:
+#       - master
+
 name: Terraform Checks
 
 on: 
@@ -19,9 +24,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" <<< ""
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $GITHUB_ENV
-        echo 'PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH' >> $GITHUB_ENV
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
+        echo "HOMEBREW_CELLAR=$(brew --cellar)" >> $GITHUB_ENV
+        echo "HOMEBREW_REPOSITORY=$(brew --repository)" >> $GITHUB_ENV
+        echo "PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH" >> $GITHUB_ENV
       shell: bash
 
     - name: Set up Terraform
