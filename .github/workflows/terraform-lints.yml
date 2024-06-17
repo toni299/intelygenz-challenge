@@ -18,6 +18,11 @@ jobs:
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.2.0 # Specify the Terraform version you want to use
+    
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '>=1.17.0'
 
     - name: Set up TFLint
       run: |
