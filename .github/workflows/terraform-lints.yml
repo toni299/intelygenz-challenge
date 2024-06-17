@@ -27,6 +27,11 @@ jobs:
         working-directory: challenge-3
         soft_fail: true
 
+    - uses: actions/cache@v4
+      name: Cache plugin dir
+      with:
+        path: ~/.tflint.d/plugins
+
     - uses: terraform-linters/setup-tflint@v4
       name: Setup TFLint
       with:
@@ -38,4 +43,4 @@ jobs:
 
     - name: Run TFLint
       working-directory: challenge-3
-      run: tflint -f compact
+      run: tflint
