@@ -10,6 +10,7 @@ on:
     branches:
       - master
 
+
 jobs:
   terraform:
     name: Run Terraform Checks
@@ -23,11 +24,19 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" <<< ""
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.bashrc
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.profile
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      shell: bash
+
+    - name: Set up Homebrew environment
+      run: |
         echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
         echo "HOMEBREW_CELLAR=$(brew --cellar)" >> $GITHUB_ENV
         echo "HOMEBREW_REPOSITORY=$(brew --repository)" >> $GITHUB_ENV
         echo "PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH" >> $GITHUB_ENV
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
       shell: bash
 
     - name: Set up Terraform
