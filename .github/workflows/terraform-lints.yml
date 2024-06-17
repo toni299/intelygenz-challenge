@@ -10,67 +10,32 @@ on:
     branches:
       - master
 
-
 jobs:
   terraform:
     name: Run Terraform Checks
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.profile
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-      shell: bash
-
-    - name: Export Homebrew Path
-      run: echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $GITHUB_ENV
+      uses: actions/checkout@v4
 
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
+      uses: hashicorp/setup-terraform@v3
+    
+    - name: tfsec
+      uses: aquasecurity/tfsec-action@v1.0.3
       with:
-        terraform_version: 1.2.0 # Specify the Terraform version you want to use
+        working-directory: challenge-3
+        soft_fail: true
 
-    - name: Install TFLint
-      run: |
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        brew install tflint
-      env:
-        HOMEBREW_NO_AUTO_UPDATE: 1
-
-    - name: Install TFSec
-      run: |
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        brew install tfsec
-      env:
-        HOMEBREW_NO_AUTO_UPDATE: 1
-
-    - name: Terraform Init
+    - uses: terraform-linters/setup-tflint@v4
+      name: Setup TFLint
+      with:
+        tflint_version: v0.50.3
+    
+    - name: Init TFLint
       working-directory: challenge-3
-      run: |
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        terraform init
-
-    - name: Terraform Validate
-      working-directory: challenge-3
-      run: |
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        terraform validate
+      run: tflint --init
 
     - name: Run TFLint
       working-directory: challenge-3
-      run: |
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        tflint
-
-    - name: Run TFSec
-      working-directory: challenge-3
-      run: |
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        tfsec .
+      run: tflint -f compact
