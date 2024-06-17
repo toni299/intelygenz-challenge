@@ -1,9 +1,11 @@
 name: Helm test end-to-end
 
-on:
-  push:
+on: 
+  pull_request:
     branches:
       - master
+    paths:
+      - 'challenge-2/**'
 
 jobs:
   lint-test:
